@@ -2,7 +2,7 @@ let currentLocation = null;
 let geoLocation = null;
 let A = null;
 let B = null;
-let distanceVal = 0
+let distanceVal = 1
 function onLoad() {
   if (window?.navigator?.geolocation) {
     geoLocation = window?.navigator?.geolocation;
@@ -16,7 +16,6 @@ function onLoad() {
     alert("Cannot access Location");
   }
   function onLocationUpdate(e) {
-    console.log(e, "ss");
     currentLocation = e?.coords;
     document.getElementById("distance").innerHTML =
       "Your Location:<br>lat:" +
@@ -28,6 +27,14 @@ function onLoad() {
     alert("Cannot access location :" + err);
   }
 
+}
+function setA() {
+  A = currentLocation;
+  updateInfo();
+}
+function setB() {
+  B = currentLocation;
+  updateInfo();
   window.addEventListener("deviceorientation", deviceOrientationHandler);
   navigator?.mediaDevices
     .getUserMedia({ video: { facingMode: "environment" } })
@@ -40,14 +47,6 @@ function onLoad() {
       console.error(e);
     });
 }
-function setA() {
-  A = currentLocation;
-  updateInfo();
-}
-function setB() {
-  B = currentLocation;
-  updateInfo();
-}
 function updateInfo() {
   if (A !== null) {
     document.getElementById("start").innerHTML =
@@ -58,9 +57,9 @@ function updateInfo() {
       B.latitude + "<br>" + B.longitude;
   }
   if (A !== null && B !== null) {
-    let dist = getDistance(A, B);
+    let distanceVal = getDistance(A, B);
     document.getElementById("distance").innerHTML =
-      "distance" + dist + "meters";
+      "distance" + distanceVal + "meters";
   }
 }
 function degToRad(deg) {
@@ -97,7 +96,6 @@ function deviceOrientationHandler(e) {
   // triAngulation method
   //   Math.tan always expects radians therefore  multiply it with Math.PI/180
   const height = Math.tan(angle * (Math.PI / 180)) * distanceVal;
-  console.log(height, "height");
   document.getElementById("objHeight").textContent =
-    (height * 3.281).toFixed(2) + "feet(" + angle.toFixed(2) + ")& deg";
+    (height * 3.281).toFixed(2) + "feet tall"
 }
