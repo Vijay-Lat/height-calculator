@@ -35,17 +35,17 @@ function setA() {
 function setB() {
   B = currentLocation;
   updateInfo();
-  window.addEventListener("deviceorientation", deviceOrientationHandler);
-  navigator?.mediaDevices
-    .getUserMedia({ video: { facingMode: "environment" } })
-    .then((signal) => {
-      const video = document.getElementById("myVideo");
-      video.srcObject = signal;
-      video.play();
-    })
-    .catch((e) => {
-      console.error(e);
-    });
+  // window.addEventListener("deviceorientation", deviceOrientationHandler);
+  // navigator?.mediaDevices
+  //   .getUserMedia({ video: { facingMode: "environment" } })
+  //   .then((signal) => {
+  //     const video = document.getElementById("myVideo");
+  //     video.srcObject = signal;
+  //     video.play();
+  //   })
+  //   .catch((e) => {
+  //     console.error(e);
+  //   });
 }
 function updateInfo() {
   if (A !== null) {
@@ -99,3 +99,4 @@ function deviceOrientationHandler(e) {
   document.getElementById("objHeight").textContent =
     (height * 3.281).toFixed(2) + "feet tall"
 }
+
